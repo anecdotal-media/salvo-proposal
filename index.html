@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anecdotal × Salvo SC — Partnership Proposal</title>
+<style>
+:root {
+  --cream:      #FFFCE8;
+  --ink:        #000000;
+  --ink-soft:   #333333;
+  --sage:       #CC5033;
+  --sage-light: #E8A090;
+  --sage-wash:  #F9EDE9;
+  --warm-white: #FFFFFF;
+  --rule:       rgba(0,0,0,0.12);
+  --serif:      Georgia, 'Times New Roman', serif;
+  --sans:       -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:300; background:var(--warm-white); color:var(--ink); overflow-x:hidden; }
+
+/* SLIDE SHELL */
+.slide {
+  position:relative; width:100%; min-height:100vh;
+  padding:clamp(48px,7vw,96px) clamp(40px,8vw,120px);
+  margin-bottom:2px; background:var(--warm-white);
+  overflow:hidden; display:flex; flex-direction:column; justify-content:center;
+}
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);
+  background-size:24px 24px; pointer-events:none;
+}
+.slide--dark { background:var(--ink); color:var(--cream); }
+.slide--dark::before { background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px); background-size:24px 24px; }
+.slide--sage { background:var(--sage-wash); }
+
+/* TYPOGRAPHY */
+.eyebrow {
+  font-family:var(--sans); font-size:10px; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase; opacity:0.5; margin-bottom:20px;
+}
+.slide--dark .eyebrow { opacity:0.4; }
+.display {
+  font-family:var(--serif); font-size:clamp(38px,5.5vw,64px);
+  font-weight:400; line-height:1.08; letter-spacing:-0.02em;
+}
+.display em { font-style:italic; color:var(--sage); }
+.slide--dark .display em { color:var(--sage-light); }
+.display-sm {
+  font-family:var(--serif); font-size:clamp(26px,3.5vw,40px);
+  font-weight:400; line-height:1.15; letter-spacing:-0.02em;
+}
+.display-sm em { font-style:italic; color:var(--sage); }
+.slide--dark .display-sm em { color:var(--sage-light); }
+.body { font-size:15px; line-height:1.7; font-weight:300; max-width:560px; opacity:0.75; margin-top:20px; }
+.body-wide { max-width:720px; }
+
+/* ACCENT */
+.rule { width:48px; height:2px; background:var(--sage); margin:28px 0; }
+.slide--dark .rule { background:var(--sage-light); }
+.slide-num { position:absolute; top:28px; right:36px; font-size:11px; letter-spacing:0.12em; opacity:0.3; font-family:var(--serif); }
+.slide-footer {
+  position:absolute; bottom:28px;
+  left:clamp(40px,8vw,120px); right:clamp(40px,8vw,120px);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; letter-spacing:0.1em; opacity:0.3;
+}
+
+/* COVER */
+.cover-hero {
+  position:relative; min-height:100vh;
+  background:url('https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1800&q=80') center 30%/cover no-repeat;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:clamp(48px,7vw,96px) clamp(40px,6vw,80px); overflow:hidden;
+}
+.cover-hero::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.65) 40%,rgba(204,80,51,0.22) 100%);
+  z-index:0;
+}
+.cover-hero > * { position:relative; z-index:1; }
+.cover-wordmark { display:flex; align-items:center; gap:10px; }
+.cover-wordmark-sep { font-family:var(--serif); font-style:italic; color:rgba(255,255,255,0.4); font-size:16px; }
+.cover-wordmark-client { font-family:var(--sans); font-size:13px; font-weight:400; letter-spacing:0.06em; color:rgba(255,255,255,0.55); }
+.cover-headline { font-family:var(--serif); font-size:clamp(48px,7vw,82px); font-weight:400; line-height:1.03; letter-spacing:-0.02em; color:var(--cream); }
+.cover-headline em { font-style:italic; color:var(--sage-light); }
+.cover-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,0.6); margin-top:20px; max-width:560px; line-height:1.65; }
+.cover-bottom-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px; }
+.cover-bottom-title { font-family:var(--serif); font-size:22px; color:var(--cream); line-height:1; margin-bottom:4px; }
+.cover-bottom-date { font-size:12px; color:rgba(255,255,255,0.4); }
+
+/* LAYOUT */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:44px; align-items:start; }
+.card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.card { background:var(--cream); padding:32px 28px; position:relative; overflow:hidden; }
+.slide--sage .card { background:#fff; }
+.card-num { font-family:var(--serif); font-size:44px; color:var(--sage); opacity:0.5; line-height:1; margin-bottom:12px; }
+.card-title { font-family:var(--serif); font-size:18px; margin-bottom:10px; line-height:1.2; }
+.card-body { font-size:13px; line-height:1.65; font-weight:300; opacity:0.7; }
+.card--accent-top::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--sage); }
+.card-quote { margin-top:16px; padding-top:14px; border-top:1px solid var(--rule); font-family:var(--serif); font-size:12px; font-style:italic; opacity:0.55; line-height:1.55; }
+
+/* PROBLEM LIST */
+.problem-list { list-style:none; margin-top:32px; display:flex; flex-direction:column; gap:14px; }
+.problem-list li { display:flex; align-items:flex-start; gap:16px; font-size:15px; line-height:1.55; font-weight:300; padding-bottom:14px; border-bottom:1px solid var(--rule); }
+.problem-list li:last-child { border-bottom:none; padding-bottom:0; }
+.problem-list li::before { content:'\2014'; color:var(--sage); font-family:var(--serif); flex-shrink:0; margin-top:1px; }
+
+/* DELIVERABLE LIST */
+.deliverable-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.deliverable-list li { padding:13px 0; border-bottom:1px solid var(--rule); display:flex; flex-direction:column; gap:3px; }
+.deliverable-list li:last-child { border-bottom:none; }
+.d-title { font-size:13.5px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:10px; line-height:1.3; }
+.d-title::before { content:''; display:inline-block; width:14px; height:2px; background:var(--sage); flex-shrink:0; }
+.d-body { font-size:12.5px; font-weight:300; color:var(--ink-soft); line-height:1.6; padding-left:24px; opacity:0.7; }
+
+/* PHASE LIST */
+.phase-list { display:flex; flex-direction:column; gap:0; margin-top:36px; }
+.phase-item { display:grid; grid-template-columns:140px 1fr; gap:32px; padding:24px 0; border-top:1px solid var(--rule); }
+.phase-item:last-child { border-bottom:1px solid var(--rule); }
+.phase-label { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; opacity:0.4; padding-top:4px; }
+.phase-title { font-family:var(--serif); font-size:19px; margin-bottom:6px; }
+.phase-body { font-size:13px; line-height:1.65; font-weight:300; opacity:0.65; }
+
+/* METRICS */
+.metric-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:44px; }
+.metric { background:rgba(255,255,255,0.05); padding:28px 24px; }
+.metric-value { font-family:var(--serif); font-size:40px; line-height:1; margin-bottom:6px; color:var(--sage-light); }
+.metric-label { font-size:11px; opacity:0.55; line-height:1.4; font-weight:300; }
+
+/* QUOTE */
+.quote-block { border-left:3px solid var(--sage-light); padding-left:24px; margin-top:36px; }
+.quote-text { font-family:var(--serif); font-size:20px; font-style:italic; line-height:1.5; color:rgba(255,252,232,0.8); }
+.quote-attr { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; opacity:0.4; margin-top:12px; }
+
+/* PRICING */
+.price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:40px; }
+.price-card { background:var(--cream); padding:36px 30px; position:relative; }
+.price-card--featured { background:var(--ink); color:var(--cream); }
+.price-tier { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.5; margin-bottom:16px; }
+.price-badge { display:inline-block; background:var(--sage); color:#fff; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; padding:3px 8px; margin-bottom:12px; }
+.price-amount { font-family:var(--serif); font-size:38px; line-height:1; margin-bottom:4px; }
+.price-period { font-size:12px; opacity:0.5; margin-bottom:20px; }
+.price-rule { height:1px; background:var(--rule); margin:16px 0; }
+.price-card--featured .price-rule { background:rgba(255,255,255,0.12); }
+.price-items { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.price-items li { font-size:12.5px; line-height:1.5; padding-left:18px; position:relative; font-weight:300; }
+.price-items li::before { content:'\2197'; position:absolute; left:0; color:var(--sage); font-size:12px; }
+.price-card--featured .price-items li::before { color:var(--sage-light); }
+.price-note { font-size:11px; opacity:0.45; margin-top:16px; line-height:1.5; }
+
+/* FEATURE BLOCK */
+.feature-block { background:var(--ink); color:var(--cream); padding:36px 40px; margin-top:40px; position:relative; overflow:hidden; }
+.feature-block::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; background:var(--sage); opacity:0.12; }
+.feature-label { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.4; margin-bottom:12px; }
+.feature-title { font-family:var(--serif); font-size:22px; line-height:1.2; margin-bottom:12px; }
+.feature-title em { font-style:italic; color:var(--sage-light); }
+.feature-body { font-size:13px; line-height:1.65; opacity:0.65; font-weight:300; }
+
+/* ANIMATION — visible by default, JS enhances progressively */
+[data-reveal] { opacity:1; transform:none; }
+.js-loaded [data-reveal] {
+  opacity:0; transform:translateY(28px);
+  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.js-loaded [data-reveal].is-visible { opacity:1; transform:translateY(0); }
+.js-loaded [data-reveal][data-delay="1"] { transition-delay:0.12s; }
+.js-loaded [data-reveal][data-delay="2"] { transition-delay:0.24s; }
+.js-loaded [data-reveal][data-delay="3"] { transition-delay:0.36s; }
+.js-loaded [data-reveal][data-delay="4"] { transition-delay:0.48s; }
+.js-loaded [data-reveal][data-delay="5"] { transition-delay:0.60s; }
+.js-loaded [data-reveal][data-delay="6"] { transition-delay:0.72s; }
+.js-loaded [data-reveal][data-delay="7"] { transition-delay:0.84s; }
+.js-loaded .rule[data-reveal] { transform:none; width:0; transition:opacity 0.9s, width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.js-loaded .rule[data-reveal].is-visible { width:48px; }
+
+/* MOBILE */
+@media (max-width:700px) {
+  .slide { padding:52px 28px; min-height:auto; }
+  .cover-hero { min-height:100vh; }
+  .card-grid, .price-grid, .metric-strip, .two-col { grid-template-columns:1fr; }
+  .phase-item { grid-template-columns:1fr; gap:8px; }
+  .display { font-size:34px; }
+  .display-sm { font-size:26px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .js-loaded [data-reveal] { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 01 — COVER -->
+<div class="cover-hero">
+  <div class="cover-wordmark" data-reveal>
+    <svg height="18" viewBox="0 0 142 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#ca)">
+        <path fill="rgba(255,252,232,0.55)" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Zm32.955 6.506c0-4.002 2.983-6.753 6.51-6.753 1.454 0 2.884.492 3.772 1.425l.024-1.179h3.452v13.014h-3.452l-.024-1.179c-.888.933-2.318 1.424-3.773 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.131 1.252-3.131 3.217 0 1.964 1.331 3.216 3.131 3.216ZM54.946 6.58c3.55 0 5.72 2.162 5.72 5.648v7.686H56.77v-7.538c0-1.4-.666-2.186-1.824-2.186-1.16 0-1.825.786-1.825 2.186v7.538h-3.896v-7.686c0-3.486 2.17-5.647 5.72-5.647Zm6.73 6.876c0-4.1 2.959-6.875 6.756-6.875 3.575 0 6.854 2.43 6.312 7.882H65.35c.37 1.547 1.627 2.48 3.353 2.48 1.38 0 2.564-.59 3.526-1.793l2.515 2.087c-1.455 1.916-3.526 2.996-6.115 2.996-4.167 0-6.953-2.8-6.953-6.777Zm9.468-1.67c-.296-1.326-1.282-2.062-2.737-2.062-1.479 0-2.589.81-3.008 2.062h5.745Zm4.339 1.645c0-4.002 2.885-6.703 6.928-6.703.592 0 1.282.05 2.047.147v3.512a13.837 13.837 0 0 0-1.603-.123c-2.268 0-3.476 1.326-3.476 3.168 0 1.841 1.208 3.142 3.476 3.142.444 0 1.011-.049 1.603-.122v3.535c-.765.098-1.455.148-2.047.148-4.043 0-6.928-2.701-6.928-6.704ZM85 13.407c0-4.002 2.983-6.753 6.509-6.753 1.282 0 2.515.369 3.427 1.105a63.42 63.42 0 0 1-.074-3.118V.933h3.896v18.98h-3.452l-.025-1.178c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.51-2.75-6.51-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216Zm7.889-3.192c0-4.002 3.107-6.85 6.978-6.85 3.871 0 6.977 2.848 6.977 6.85 0 4.003-3.106 6.851-6.977 6.851-3.871 0-6.978-2.848-6.978-6.85Zm6.978 3.242c1.75 0 3.082-1.302 3.082-3.241 0-1.94-1.332-3.242-3.082-3.242-1.751 0-3.082 1.302-3.082 3.242s1.331 3.24 3.082 3.24Zm8.925-6.286h-1.554V6.9h1.554V3.56l3.895-1.252V6.9h1.578v3.487h-1.578l-.024 9.527h-3.896l.025-9.527Zm5.868 3.02c0-4.002 2.983-6.753 6.509-6.753 1.455 0 2.885.492 3.772 1.425l.025-1.179h3.452v13.014h-3.452l-.025-1.179c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216ZM137.17.933h3.896v18.98h-3.896V.934Z"/>
+        <path fill="#CC5033" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Z"/>
+      </g>
+      <defs><clipPath id="ca"><path fill="#fff" d="M0 0h142v28H0z"/></clipPath></defs>
+    </svg>
+    <span class="cover-wordmark-sep" style="margin:0 10px;">&#215;</span>
+    <span class="cover-wordmark-client">Salvo SC</span>
+  </div>
+  <div>
+    <div class="cover-headline" data-reveal data-delay="1">
+      The World's Most Popular Sport.<br><em>Minnesota's Best-Kept Opportunity.</em>
+    </div>
+    <div class="cover-sub" data-reveal data-delay="2">
+      Salvo SC serves 5,000+ kids across the Twin Cities. 100 teams. 34,000 families on your email list. Soccer is everywhere else in the world &#8212; here, Salvo is its introduction. That&#8217;s where we come in.
+    </div>
+  </div>
+  <div data-reveal data-delay="3">
+    <div class="cover-bottom-label">Prepared for</div>
+    <div class="cover-bottom-title">Alex &amp; Salvo SC</div>
+    <div class="cover-bottom-date">March 2026 &middot; Confidential</div>
+  </div>
+</div>
+
+
+<!-- SLIDE 02 — THE STARTING POINT -->
+<div class="slide">
+  <div class="slide-num">02</div>
+  <div class="eyebrow" data-reveal>The Starting Point</div>
+  <div class="display" data-reveal data-delay="1">A strong foundation.<br><em>A missing system.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Salvo SC has the size, the structure, the community presence, and the mission to be the most visible youth sports organization in the Twin Cities. What isn&#8217;t in place yet is the marketing infrastructure to make any of that visible to the families you want to reach.</div>
+  <div class="two-col" style="margin-top:52px;">
+    <div data-reveal data-delay="3">
+      <div class="eyebrow">What&#8217;s working</div>
+      <ul class="deliverable-list" style="margin-top:16px;">
+        <li><div class="d-title">Organizational stability</div><div class="d-body">Second-largest soccer club in Minnesota &#8212; real size, real structure</div></li>
+        <li><div class="d-title">100 teams worth of content</div><div class="d-body">Matches, practices, and moments happening every single week &#8212; uncaptured</div></li>
+        <li><div class="d-title">34,000-family email list</div><div class="d-body">A direct channel most nonprofits would envy</div></li>
+        <li><div class="d-title">ED with a marketing background</div><div class="d-body">A new leader who sees exactly what&#8217;s possible and has the credibility to build it</div></li>
+        <li><div class="d-title">$27,000 available right now</div><div class="d-body">Before the new budget cycle even begins &#8212; ready to deploy</div></li>
+      </ul>
+    </div>
+    <div data-reveal data-delay="4">
+      <div class="eyebrow">What isn&#8217;t in place yet</div>
+      <ul class="deliverable-list" style="margin-top:16px;">
+        <li><div class="d-title">The wrong marketing identity</div><div class="d-body">The current presence reflects a competitive wins machine &#8212; not the community builder Salvo actually is</div></li>
+        <li><div class="d-title">No unified social voice</div><div class="d-body">Multiple fragmented accounts, no consistent message or content system</div></li>
+        <li><div class="d-title">Google Ad Grant untouched</div><div class="d-body">$10K/month in free advertising available &#8212; never activated</div></li>
+        <li><div class="d-title">34K subscribers, no funnel</div><div class="d-body">Receiving announcements instead of a donor story or engagement sequence</div></li>
+        <li><div class="d-title">No content capture system</div><div class="d-body">100 teams generating moments every week with no infrastructure to collect them</div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 03 — WHAT WE HEARD -->
+<div class="slide slide--sage">
+  <div class="slide-num">03</div>
+  <div class="eyebrow" data-reveal>What We Heard</div>
+  <div class="display-sm" data-reveal data-delay="1">Six patterns. All <em>structural.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="card-grid" style="margin-top:36px;">
+    <div class="card card--accent-top" data-reveal data-delay="2">
+      <div class="card-num">01</div>
+      <div class="card-title">The wrong marketing identity</div>
+      <div class="card-body">The current presence celebrates wins and tournaments &#8212; which is one part of what Salvo does, not who Salvo is. The messaging reflects a club for competitive soccer families, not a community builder using soccer as the vehicle.</div>
+      <div class="card-quote">&#8220;Culture is what you celebrate, what you tolerate, what you eliminate.&#8221;</div>
+    </div>
+    <div class="card card--accent-top" data-reveal data-delay="3">
+      <div class="card-num">02</div>
+      <div class="card-title">$44K/year with nothing to show</div>
+      <div class="card-body">The previous marketing spend went entirely to website maintenance. There was no system for content creation, social growth, or community reach.</div>
+      <div class="card-quote">&#8220;We were paying 44 grand a year, literally for website maintenance &#8212; which is absolutely insane.&#8221;</div>
+    </div>
+    <div class="card card--accent-top" data-reveal data-delay="4">
+      <div class="card-num">03</div>
+      <div class="card-title">Four social accounts, one voice missing</div>
+      <div class="card-body">Multiple Facebook pages, multiple Instagram accounts, an abandoned X link, and no TikTok. There isn&#8217;t a unified channel system or content strategy connecting them.</div>
+      <div class="card-quote">&#8220;There was nothing I would characterize as meaningful advertising or marketing in the last two years.&#8221;</div>
+    </div>
+    <div class="card card--accent-top" data-reveal data-delay="2">
+      <div class="card-num">04</div>
+      <div class="card-title">A vision with no amplification</div>
+      <div class="card-body">There&#8217;s a clear, fundable vision &#8212; immigrant and refugee kids accessing the world&#8217;s game &#8212; but no storytelling infrastructure to make it visible to donors or press.</div>
+      <div class="card-quote">&#8220;I want to better serve those communities &#8212; because I want all kids to have the same opportunities.&#8221;</div>
+    </div>
+    <div class="card card--accent-top" data-reveal data-delay="3">
+      <div class="card-num">05</div>
+      <div class="card-title">34,000 subscribers. No strategy.</div>
+      <div class="card-body">A monthly newsletter reaching 34,000 families is being used for player-of-the-month announcements. There isn&#8217;t a donor funnel, segmentation, or fundraising sequence connected to it yet.</div>
+      <div class="card-quote">&#8220;We have an email distro&#8230; not really used for fostering donors.&#8221;</div>
+    </div>
+    <div class="card card--accent-top" data-reveal data-delay="4">
+      <div class="card-num">06</div>
+      <div class="card-title">$10K/month in free ads. Untouched.</div>
+      <div class="card-body">The Google for Nonprofits Ad Grant &#8212; $10,000/month in free search advertising &#8212; hasn&#8217;t been activated. There&#8217;s no system in place to claim or manage it.</div>
+      <div class="card-quote">&#8220;I&#8217;d be stunned if we may or may not be using it. I don&#8217;t think anything&#8217;s probably happening.&#8221;</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 04 — STRATEGIC SHIFT -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">04</div>
+  <div class="eyebrow" data-reveal>The Strategic Shift</div>
+  <div class="display" data-reveal data-delay="1">Here, the sport<br>still has to<br><em>introduce itself.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Soccer is the default sport everywhere else in the world &#8212; woven into culture, community, and identity. In Minnesota, there isn&#8217;t that default yet. Parents here didn&#8217;t grow up with it. There&#8217;s no assumed shared language around the game. That&#8217;s not a liability. For Salvo, it&#8217;s the opportunity. Building excitement for the sport itself &#8212; not just enrollment in a club &#8212; is part of the work. And Salvo is the only organization in the Twin Cities positioned to do it.</div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 05 — WHAT WE'RE PROPOSING -->
+<div class="slide">
+  <div class="slide-num">05</div>
+  <div class="eyebrow" data-reveal>What We&#8217;re Proposing</div>
+  <div class="display-sm" data-reveal data-delay="1">Three goals. <em>One integrated plan.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body" data-reveal data-delay="3">Every service we&#8217;re recommending flows from what we heard you say you&#8217;re trying to achieve. No generic retainer. A plan built around your specific outcomes.</div>
+  <div class="card-grid" data-reveal data-delay="3">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">Grow Rec Enrollment</div>
+      <div class="card-body">In Minnesota, soccer doesn&#8217;t sell itself the way it does everywhere else &#8212; part of the work is building genuine excitement for the sport. Hyper-local campaigns in all three geos, social content that makes soccer look fun and accessible, and a UGC system that puts 20&#8211;40 parents per team to work creating it.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">Build the Donor Pipeline</div>
+      <div class="card-body">Convert your 34K email list from announcement channel to fundraising engine. A year-end donor campaign built around a real family&#8217;s transformative experience. The film that makes scholarship giving feel personal.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">Own the Salvo Narrative</div>
+      <div class="card-body">Consolidate all accounts into one voice. Full social management &#8212; daily, consistent, mission-forward. A messaging framework every staff member and board member can use. Monthly reporting that actually tells you what&#8217;s moving.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 06 — PHASE 01 -->
+<div class="slide slide--sage">
+  <div class="slide-num">06</div>
+  <div class="eyebrow" data-reveal>Phase 01 &middot; Now &#8594; July 31, 2026</div>
+  <div class="display-sm" data-reveal data-delay="1">
+    <span style="display:inline-block;background:var(--sage);color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:0.1em;padding:4px 12px;margin-bottom:16px;font-style:normal;">&#9917; THE FIRST TOUCH</span><br>
+    Foundation &amp; <em>Quick Wins</em>
+  </div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body" data-reveal data-delay="3">Use what&#8217;s already budgeted &#8212; your existing $27,000. Consolidate the social presence, set up the infrastructure, and prove the model before August. Flat fee, no surprises.</div>
+  <div class="two-col" data-reveal data-delay="3">
+    <div>
+      <div class="eyebrow" style="margin-bottom:16px;">Social Media</div>
+      <ul class="deliverable-list">
+        <li><div class="d-title">Account consolidation</div><div class="d-body">Merge all Facebook &amp; Instagram into one branded presence; archive or redirect everything else</div></li>
+        <li><div class="d-title">TikTok launch</div><div class="d-body">Build the Salvo TikTok with an initial content burst designed for the parent demographic</div></li>
+        <li><div class="d-title">UGC playbook</div><div class="d-body">A parent-manager guide so every team volunteer knows exactly what to capture each match day</div></li>
+        <li><div class="d-title">6&#8211;8 weeks of managed posting</div><div class="d-body">Instagram, Facebook, and TikTok while the Year One structure gets built</div></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:16px;">Infrastructure &amp; Strategy</div>
+      <ul class="deliverable-list">
+        <li><div class="d-title">Google for Nonprofits setup</div><div class="d-body">Apply, activate, and configure the $10K/month Ad Grant. This alone justifies the cost of this entire phase.</div></li>
+        <li><div class="d-title">Marketing &amp; messaging audit</div><div class="d-body">Full honest review of social, email, and brand positioning &#8212; no sugarcoating</div></li>
+        <li><div class="d-title">Email strategy blueprint</div><div class="d-body">A concrete plan to convert your 34K list from an announcement channel into a donor pipeline</div></li>
+        <li><div class="d-title">Messaging framework</div><div class="d-body">A values-forward brand voice guide for Jenna, for you, for the board</div></li>
+      </ul>
+      <div class="feature-block" style="margin-top:28px;">
+        <div class="feature-label">Phase Investment</div>
+        <div class="feature-title" style="font-size:36px;margin-bottom:4px;">$8,500</div>
+        <div class="feature-body">Flat fee &middot; from your existing $27K budget &middot; no monthly commitment</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 07 — PHASE 02 -->
+<div class="slide">
+  <div class="slide-num">07</div>
+  <div class="eyebrow" data-reveal>Phase 02 &middot; August 1, 2026 &#8594; July 31, 2027</div>
+  <div class="display-sm" data-reveal data-delay="1">
+    <span style="display:inline-block;background:var(--ink);color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:0.1em;padding:4px 12px;margin-bottom:16px;font-style:normal;">&#127967; THE FULL PITCH</span><br>
+    Complete Partnership. <em>Full Growth.</em>
+  </div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body" data-reveal data-delay="3">Budget this in April. Hit the ground running August 1st. Build something Salvo has never had &#8212; a fully managed, fully integrated marketing operation.</div>
+  <div class="two-col" data-reveal data-delay="3">
+    <div>
+      <div class="eyebrow" style="margin-bottom:4px;">Monthly Breakdown</div>
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-label">Social Management</div>
+          <div><div class="phase-title">$6,250 / mo</div><div class="phase-body">Full daily posting across Instagram, Facebook, TikTok &#8212; managed by Al, a lifelong soccer player who had content ideas for Salvo before we sent this proposal</div></div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-label">Meta Ads</div>
+          <div><div class="phase-title">$1,300 / mo</div><div class="phase-body">Includes $1,000/mo ad spend. Hyper-local campaigns targeting parents of young kids in all three geos</div></div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-label">Google Grant Mgmt</div>
+          <div><div class="phase-title">$1,000 / mo</div><div class="phase-body">$10K/month in free ads, fully managed and optimized to drive enrollment</div></div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-label">Email + Analytics</div>
+          <div><div class="phase-title">$1,100 / mo</div><div class="phase-body">Donor campaign strategy, list management, UGC coordination, monthly plain-English reporting</div></div>
+        </div>
+        <div class="phase-item" style="background:var(--sage-wash);padding:16px 0;">
+          <div class="phase-label" style="color:var(--sage);opacity:1;font-weight:500;">Monthly Total</div>
+          <div><div class="phase-title" style="font-size:28px;color:var(--sage);">$9,650 / mo</div><div class="phase-body">$115,800 / year &middot; 12-month retainer</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:16px;">Year-End Donor Campaign</div>
+      <div class="feature-block">
+        <div class="feature-label">Optional Add-On &middot; Recommended Year One</div>
+        <div class="feature-title">&#127916; The Flagship <em>Story Film</em></div>
+        <div class="feature-body" style="margin-top:12px;">A single, cinematic film built around one scholarship family&#8217;s transformative experience with Salvo &#8212; what access to the sport meant for their kid and their community. Your fundraising anchor: the film you screen at year-end donor events, embed in every campaign email, and pitch to press. Texas Hearing Institute used a film like this to grow donations 45% in Year One.</div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.12);">
+          <div style="font-family:var(--serif);font-size:28px;color:var(--sage-light);">$17,000</div>
+          <div style="font-size:11px;opacity:0.5;margin-top:4px;">flat rate &middot; one-time &middot; invoiceable Q2 or Q3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 08 — WHY ANECDOTAL -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">08</div>
+  <div class="eyebrow" data-reveal>Why Anecdotal</div>
+  <div class="display-sm" data-reveal data-delay="1">We&#8217;ve done this before.<br><em>With a youth org just like yours.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body" data-reveal data-delay="3">Sea Cadets was a large, stable youth nonprofit with almost no marketing presence, declining enrollment, and an untapped Google Ad Grant. We fixed all three in Year One.</div>
+  <div class="metric-strip" data-reveal data-delay="3">
+    <div class="metric">
+      <div class="metric-value">10&#215;</div>
+      <div class="metric-label">More social engagement than the Boy Scouts &#8212; for Sea Cadets in Year One</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">$800K</div>
+      <div class="metric-label">Funding increase from the U.S. Navy, directly from the profile we built</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">45%</div>
+      <div class="metric-label">Increase in donations at Texas Hearing Institute from a single story film</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">160+</div>
+      <div class="metric-label">Media outlets covered Sea Cadets &#8212; AP, Yahoo Finance, TV affiliates</div>
+    </div>
+  </div>
+  <div class="quote-block" data-reveal data-delay="4">
+    <div class="quote-text">&#8220;In our first year working with this team, they brought us out of obscurity and interest in Sea Cadets has never been higher. Marketing is no longer a stressor for me, but a great opportunity for growth and success.&#8221;</div>
+    <div class="quote-attr">Andy Lennon &#8212; Executive Director, U.S. Naval Sea Cadet Corps</div>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 09 — TIMELINE -->
+<div class="slide slide--sage">
+  <div class="slide-num">09</div>
+  <div class="eyebrow" data-reveal>Implementation</div>
+  <div class="display-sm" data-reveal data-delay="1">Three phases. <em>One direction.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="phase-list" style="margin-top:40px;">
+    <div class="phase-item" data-reveal data-delay="2">
+      <div class="phase-label">Now &#8594; July 2026<br><span style="margin-top:8px;display:block;background:var(--sage);color:#fff;font-size:9px;padding:2px 7px;letter-spacing:0.1em;">&#9917; FIRST TOUCH</span></div>
+      <div>
+        <div class="phase-title">Establish the Foundation</div>
+        <div class="phase-body">Consolidate social presence. Activate the Google Ads Grant. Build the content architecture and messaging framework. By August, Jenna isn&#8217;t carrying this alone &#8212; and the board sees what marketing looks like when someone who cares about it takes the wheel.</div>
+      </div>
+    </div>
+    <div class="phase-item" data-reveal data-delay="3">
+      <div class="phase-label">Aug 2026 &#8594; Jul 2027<br><span style="margin-top:8px;display:block;background:var(--ink);color:#fff;font-size:9px;padding:2px 7px;letter-spacing:0.1em;">&#127967; FULL PITCH</span></div>
+      <div>
+        <div class="phase-title">Build the Machine</div>
+        <div class="phase-body">Full social management. Active ad campaigns driving enrollment in all three geos. A donor campaign built around a real family&#8217;s transformative story. By year-end, you walk into your Year Two budget conversation with metrics the board can&#8217;t argue with.</div>
+      </div>
+    </div>
+    <div class="phase-item" data-reveal data-delay="4">
+      <div class="phase-label">Aug 2027+<br><span style="margin-top:8px;display:block;background:var(--sage);color:#fff;font-size:9px;padding:2px 7px;letter-spacing:0.1em;">&#127758; YEAR TWO</span></div>
+      <div>
+        <div class="phase-title">The Immigrant &amp; Refugee Initiative</div>
+        <div class="phase-body">This is where Salvo stops being a soccer club and becomes a civic institution. A targeted scholarship program for Somali and Hispanic kids. A cinematic campaign built around the families you&#8217;ve always wanted to serve. The PR story that reaches ESPN and Sports Illustrated. The story that raises serious scholarship money &#8212; and changes who Minnesota thinks Salvo is for.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 10 — INVESTMENT -->
+<div class="slide">
+  <div class="slide-num">10</div>
+  <div class="eyebrow" data-reveal>Investment</div>
+  <div class="display-sm" data-reveal data-delay="1">Choose your <em>starting point.</em><br>Scale from there.</div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body" data-reveal data-delay="3">You have $27,000 available before August. Your board budget cycle closes mid-April. Both paths are designed to use those windows without waste.</div>
+  <div class="price-grid" data-reveal data-delay="3">
+    <div class="price-card">
+      <div class="price-badge">&#9917; The First Touch</div>
+      <div class="price-tier">Phase 01 &middot; Now &#8594; July 2026</div>
+      <div class="price-amount">$8,500</div>
+      <div class="price-period">flat fee &middot; no surprises</div>
+      <div class="price-rule"></div>
+      <ul class="price-items">
+        <li>Social account consolidation</li>
+        <li>TikTok launch + initial content burst</li>
+        <li>UGC parent playbook</li>
+        <li>6&#8211;8 weeks managed posting</li>
+        <li>Google for Nonprofits setup + grant activation</li>
+        <li>Full marketing &amp; messaging audit</li>
+        <li>Email strategy blueprint</li>
+        <li>Brand messaging framework</li>
+      </ul>
+      <div class="price-note">From your existing $27K budget.</div>
+    </div>
+    <div class="price-card price-card--featured">
+      <div class="price-badge" style="background:var(--sage-light);color:var(--ink);">&#127967; The Full Pitch</div>
+      <div class="price-tier">Phase 02 &middot; Aug 2026 &#8594; Jul 2027</div>
+      <div class="price-amount">$9,650</div>
+      <div class="price-period">per month &middot; 12-month retainer</div>
+      <div class="price-rule"></div>
+      <ul class="price-items">
+        <li>Full daily social media management</li>
+        <li>Meta ads + $1K/mo ad spend</li>
+        <li>Google Ads Grant management ($10K/mo)</li>
+        <li>Email/donor campaign strategy</li>
+        <li>Monthly content calendar + UGC</li>
+        <li>Monthly plain-English analytics report</li>
+        <li>Year-end donor campaign execution</li>
+        <li>Values-forward messaging oversight</li>
+      </ul>
+      <div class="price-note" style="color:rgba(255,252,232,0.4);">$115,800 / year. Budget in April. Start August 1st.</div>
+    </div>
+    <div class="price-card">
+      <div class="price-badge" style="background:transparent;border:1px dashed var(--sage);color:var(--sage);">&#127916; Optional Add-On</div>
+      <div class="price-tier">Flagship Story Film</div>
+      <div class="price-amount">$17,000</div>
+      <div class="price-period">flat rate &middot; one-time</div>
+      <div class="price-rule"></div>
+      <ul class="price-items">
+        <li>Single cinematic film</li>
+        <li>One scholarship family&#8217;s transformative experience</li>
+        <li>Production, filming, editing</li>
+        <li>Formatted for events, email, social, press</li>
+        <li>Your year-end fundraising anchor</li>
+      </ul>
+      <div class="price-note">Invoiceable Q2 or Q3. The film Texas Hearing Institute used to grow donations 45%.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media Proposal</span></div>
+</div>
+
+
+<!-- SLIDE 11 — CLOSING CTA -->
+<div class="cover-hero" style="background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1800&q=80');background-position:center 50%;">
+  <div data-reveal>
+    <svg height="18" viewBox="0 0 142 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#ck)">
+        <path fill="rgba(255,252,232,0.45)" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Zm32.955 6.506c0-4.002 2.983-6.753 6.51-6.753 1.454 0 2.884.492 3.772 1.425l.024-1.179h3.452v13.014h-3.452l-.024-1.179c-.888.933-2.318 1.424-3.773 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.131 1.252-3.131 3.217 0 1.964 1.331 3.216 3.131 3.216ZM54.946 6.58c3.55 0 5.72 2.162 5.72 5.648v7.686H56.77v-7.538c0-1.4-.666-2.186-1.824-2.186-1.16 0-1.825.786-1.825 2.186v7.538h-3.896v-7.686c0-3.486 2.17-5.647 5.72-5.647Zm6.73 6.876c0-4.1 2.959-6.875 6.756-6.875 3.575 0 6.854 2.43 6.312 7.882H65.35c.37 1.547 1.627 2.48 3.353 2.48 1.38 0 2.564-.59 3.526-1.793l2.515 2.087c-1.455 1.916-3.526 2.996-6.115 2.996-4.167 0-6.953-2.8-6.953-6.777Zm9.468-1.67c-.296-1.326-1.282-2.062-2.737-2.062-1.479 0-2.589.81-3.008 2.062h5.745Zm4.339 1.645c0-4.002 2.885-6.703 6.928-6.703.592 0 1.282.05 2.047.147v3.512a13.837 13.837 0 0 0-1.603-.123c-2.268 0-3.476 1.326-3.476 3.168 0 1.841 1.208 3.142 3.476 3.142.444 0 1.011-.049 1.603-.122v3.535c-.765.098-1.455.148-2.047.148-4.043 0-6.928-2.701-6.928-6.704ZM85 13.407c0-4.002 2.983-6.753 6.509-6.753 1.282 0 2.515.369 3.427 1.105a63.42 63.42 0 0 1-.074-3.118V.933h3.896v18.98h-3.452l-.025-1.178c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.51-2.75-6.51-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216Zm7.889-3.192c0-4.002 3.107-6.85 6.978-6.85 3.871 0 6.977 2.848 6.977 6.85 0 4.003-3.106 6.851-6.977 6.851-3.871 0-6.978-2.848-6.978-6.85Zm6.978 3.242c1.75 0 3.082-1.302 3.082-3.241 0-1.94-1.332-3.242-3.082-3.242-1.751 0-3.082 1.302-3.082 3.242s1.331 3.24 3.082 3.24Zm8.925-6.286h-1.554V6.9h1.554V3.56l3.895-1.252V6.9h1.578v3.487h-1.578l-.024 9.527h-3.896l.025-9.527Zm5.868 3.02c0-4.002 2.983-6.753 6.509-6.753 1.455 0 2.885.492 3.772 1.425l.025-1.179h3.452v13.014h-3.452l-.025-1.179c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216ZM137.17.933h3.896v18.98h-3.896V.934Z"/>
+        <path fill="#CC5033" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Z"/>
+      </g>
+      <defs><clipPath id="ck"><path fill="#fff" d="M0 0h142v28H0z"/></clipPath></defs>
+    </svg>
+  </div>
+  <div>
+    <div style="font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,252,232,0.45);margin-bottom:20px;" data-reveal data-delay="1">Next Step</div>
+    <div class="cover-headline" data-reveal data-delay="2">Your board budget<br>closes mid-April.<br><em>Let&#8217;s use this window.</em></div>
+    <div class="cover-sub" data-reveal data-delay="3">You have $27,000 available right now. Let&#8217;s start with The First Touch, show what&#8217;s possible, and walk into August with a full partnership already proven.</div>
+    <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;" data-reveal data-delay="4">
+      <a href="/cdn-cgi/l/email-protection#304249515e70515e5553545f44515c1e5d555459510f4345525a5553440d63515c465f10637310d2b0a4107c554417431064515c5b107e554844106344554043" style="display:inline-block;background:#fff;color:var(--sage);font-family:var(--sans);font-weight:500;font-size:14px;padding:14px 32px;text-decoration:none;">Let&#8217;s Talk Next Steps</a>
+      <a href="https://anecdotal.media/case-studies" target="_blank" style="display:inline-block;border:1px solid rgba(255,252,232,0.35);color:var(--cream);font-family:var(--sans);font-weight:400;font-size:14px;padding:14px 32px;text-decoration:none;">See Our Work &#8594;</a>
+    </div>
+  </div>
+  <div data-reveal data-delay="4">
+    <div class="cover-bottom-label">Prepared by</div>
+    <div class="cover-bottom-title">Ryan McNeill &amp; Adam Willis</div>
+    <div class="cover-bottom-date">Anecdotal Media &middot; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a48435b547a5b545f595e554e5b5614575f5e535b">[email&#160;protected]</a> &middot; anecdotal.media</div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  try {
+    document.documentElement.classList.add('js-loaded');
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    var coverEls = document.querySelectorAll('.cover-hero [data-reveal]');
+    setTimeout(function(){ coverEls.forEach(function(el){ el.classList.add('is-visible'); }); }, 100);
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    },{ thresho
